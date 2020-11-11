@@ -1,0 +1,5 @@
+[data-framer-component-type="NavigationContainer"]
+  > [data-framer-component-type] {
+  width: 100% !important;
+  height: 100% !important;
+}

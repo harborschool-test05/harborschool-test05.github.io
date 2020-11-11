@@ -318,6 +318,7 @@ design/images/1VxKkXkiKB7rBGvoVz080yE5rIk.jpg
 design/images/1LtVDeDGg7SbOhDzJmquUNQNw.jpg
 design/images/06LWxjMiWPFfxI4UoCVuh39FLUM.png
 design/images/05ayMTwd1D7pudrFsugBZYxsCjo.jpg
+code/navigation.css
 index.html
 scripts/react/react.production.min.js
 scripts/react-dom/react-dom.production.min.js
