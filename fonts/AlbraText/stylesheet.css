@@ -1,0 +1,71 @@
+@font-face {
+  font-family: "AlbraTextSemi";
+  src: url("AlbraTextSemi.eot");
+  src: url("AlbraTextSemi.eot?#iefix") format("embedded-opentype"),
+    url("AlbraTextSemi.woff2") format("woff2"),
+    url("AlbraTextSemi.woff") format("woff"),
+    url("AlbraTextSemi.ttf") format("truetype");
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "AlbraTextLight";
+  src: url("AlbraTextLight.eot");
+  src: url("AlbraTextLight.eot?#iefix") format("embedded-opentype"),
+    url("AlbraTextLight.woff2") format("woff2"),
+    url("AlbraTextLight.woff") format("woff"),
+    url("AlbraTextLight.ttf") format("truetype");
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "AlbraTextBlack";
+  src: url("AlbraTextBlack.eot");
+  src: url("AlbraTextBlack.eot?#iefix") format("embedded-opentype"),
+    url("AlbraTextBlack.woff2") format("woff2"),
+    url("AlbraTextBlack.woff") format("woff"),
+    url("AlbraTextBlack.ttf") format("truetype");
+  font-weight: 800;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "AlbraTextBold";
+  src: url("AlbraTextBold.eot");
+  src: url("AlbraTextBold.eot?#iefix") format("embedded-opentype"),
+    url("AlbraTextBold.woff2") format("woff2"),
+    url("AlbraTextBold.woff") format("woff"),
+    url("AlbraTextBold.ttf") format("truetype");
+  font-weight: bold;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "AlbraTextRegular";
+  src: url("AlbraTextRegular.eot");
+  src: url("AlbraTextRegular.eot?#iefix") format("embedded-opentype"),
+    url("AlbraTextRegular.woff2") format("woff2"),
+    url("AlbraTextRegular.woff") format("woff"),
+    url("AlbraTextRegular.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "AlbraTextMedium";
+  src: url("AlbraTextMedium.eot");
+  src: url("AlbraTextMedium.eot?#iefix") format("embedded-opentype"),
+    url("AlbraTextMedium.woff2") format("woff2"),
+    url("AlbraTextMedium.woff") format("woff"),
+    url("AlbraTextMedium.ttf") format("truetype");
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}

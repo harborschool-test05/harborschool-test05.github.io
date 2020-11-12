@@ -1,0 +1,35 @@
+@font-face {
+  font-family: "NHaasGroteskTXPro-55Rg";
+  src: url("NHaasGroteskTXPro-55Rg.eot");
+  src: url("NHaasGroteskTXPro-55Rg.eot?#iefix") format("embedded-opentype"),
+    url("NHaasGroteskTXPro-55Rg.woff2") format("woff2"),
+    url("NHaasGroteskTXPro-55Rg.woff") format("woff"),
+    url("NHaasGroteskTXPro-55Rg.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "NHaasGroteskTXPro-65Md";
+  src: url("NHaasGroteskTXPro-65Md.eot");
+  src: url("NHaasGroteskTXPro-65Md.eot?#iefix") format("embedded-opentype"),
+    url("NHaasGroteskTXPro-65Md.woff2") format("woff2"),
+    url("NHaasGroteskTXPro-65Md.woff") format("woff"),
+    url("NHaasGroteskTXPro-65Md.ttf") format("truetype");
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "NHaasGroteskTXPro-75Bd";
+  src: url("NHaasGroteskTXPro-75Bd.eot");
+  src: url("NHaasGroteskTXPro-75Bd.eot?#iefix") format("embedded-opentype"),
+    url("NHaasGroteskTXPro-75Bd.woff2") format("woff2"),
+    url("NHaasGroteskTXPro-75Bd.woff") format("woff"),
+    url("NHaasGroteskTXPro-75Bd.ttf") format("truetype");
+  font-weight: bold;
+  font-style: normal;
+  font-display: swap;
+}
