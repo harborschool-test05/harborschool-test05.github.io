@@ -10,10 +10,15 @@ import { MotionStyle } from 'framer-motion';
 import { MotionTransform } from 'framer-motion';
 import { MotionValue } from 'framer-motion';
 import { PanInfo } from 'framer-motion';
+import { RawDraftContentState } from 'draft-js';
 import * as React from 'react';
 import { ReactNode } from 'react';
 import { Record } from 'immutable';
+import { SelectionState } from 'draft-js';
+import { Spring } from 'framer-motion';
 import { Transition } from 'framer-motion';
+import { Tween } from 'framer-motion';
+import { Variants } from 'framer-motion';
 
 /* Excluded from this release type: Action */
 
@@ -121,28 +126,38 @@ export declare type AnimatableObject<T> = {
 };
 
 /**
- * Animate an {@link (Animatable:interface)} value to a new value.
- * @remarks
- * Recommended use is to use convenience functions from the `animate` namespace
- * instead of passing an animator. Only use this for low-level animation tweaking.
+ * Animate a single value or a `MotionValue`.
  *
- * ```jsx
- * const value = Animatable(0)
- * animate(value, 100)
+ * The first argument is either a `MotionValue` to animate, or an initial animation value.
  *
- * const value = Animatable({x: 0, y: 0})
- * animate(value, {x: 100, y: 100})
+ * The second is either a value to animate to, or an array of keyframes to animate through.
+ *
+ * The third argument can be either tween or spring options, and optional lifecycle methods: `onUpdate`, `onPlay`, `onComplete`, `onRepeat` and `onStop`.
+ *
+ * Returns `PlaybackControls`, currently just a `stop` method.
+ *
+ * ```javascript
+ * const x = useMotionValue(0)
+ *
+ * useEffect(() => {
+ *   const controls = animate(x, 100, {
+ *     type: "spring",
+ *     stiffness: 2000,
+ *     onComplete: v => {}
+ *   })
+ *
+ *   return controls.stop
+ * })
  * ```
  *
- * @param from - The animatable value or object to start from
- * @param to - Value to animate to
- * @param animator - Animator class to use.
- * @param options - Animation options
- * @returns Instance of {@link FramerAnimation} that can be used to control the animation
  * @public
- * @deprecated Use the {@link AnimationProps.animate} prop on {@link Frame} instead.
+ *
+ * @deprecated
  */
-export declare function animate<Value, Options>(from: DeprecatedAnimationTarget<Value>, to: Value, animator?: AnimatorClass<Value, Options>, options?: Partial<Options & AnimationOptions<Value>>): FramerAnimation<Value, Options>;
+export declare function animate<Value, Options>(from: DeprecatedAnimationTarget<Value>, to: Value, animator?: AnimatorClass<Value, Options>, options?: Partial<Options & DeprecatedAnimationOptions<Value>>): FramerAnimation<Value, Options>;
+
+/** @public */
+export declare function animate<V>(from: MotionValue<V> | V, to: V | V[], transition?: AnimationOptions<V>): PlaybackControls;
 
 /**
  * @public
@@ -165,7 +180,7 @@ export declare namespace animate {
      * @returns Instance of {@link FramerAnimation} that can be used to control the animation
      * @deprecated Use {@link MotionProps.animate} on {@link Frame} instead.
      */
-    export function spring<Value>(from: DeprecatedAnimationTarget<Value>, to: Value, options?: Partial<SpringOptions & AnimationOptions<Value>>): FramerAnimation<Value, SpringOptions>;
+    export function spring<Value>(from: DeprecatedAnimationTarget<Value>, to: Value, options?: Partial<SpringOptions & DeprecatedAnimationOptions<Value>>): FramerAnimation<Value, SpringOptions>;
     /**
      * Animate value with a bezier curve
      * @remarks
@@ -185,7 +200,7 @@ export declare namespace animate {
      * @returns Instance of {@link FramerAnimation} that can be used to control the animation
      * @deprecated Use {@link MotionProps.animate} on {@link Frame} instead.
      */
-    export function bezier<Value>(from: DeprecatedAnimationTarget<Value>, to: Value, options?: Partial<BezierOptions & AnimationOptions<Value>>): FramerAnimation<Value, BezierOptions>;
+    export function bezier<Value>(from: DeprecatedAnimationTarget<Value>, to: Value, options?: Partial<BezierOptions & DeprecatedAnimationOptions<Value>>): FramerAnimation<Value, BezierOptions>;
     /**
      * Animate value with a linear animation
      * @remarks
@@ -204,7 +219,7 @@ export declare namespace animate {
      * @returns Instance of {@link FramerAnimation} that can be used to control the animation
      * @deprecated Use {@link MotionProps.animate} on {@link Frame} instead.
      */
-    export function linear<Value>(from: DeprecatedAnimationTarget<Value>, to: Value, options?: Partial<EaseOptions & AnimationOptions<Value>>): FramerAnimation<Value, BezierOptions>;
+    export function linear<Value>(from: DeprecatedAnimationTarget<Value>, to: Value, options?: Partial<EaseOptions & DeprecatedAnimationOptions<Value>>): FramerAnimation<Value, BezierOptions>;
     /**
      * Animate value with a ease animation
      * @remarks
@@ -223,7 +238,7 @@ export declare namespace animate {
      * @returns Instance of {@link FramerAnimation} that can be used to control the animation
      * @deprecated Use {@link MotionProps.animate} on {@link Frame} instead.
      */
-    export function ease<Value>(from: DeprecatedAnimationTarget<Value>, to: Value, options?: Partial<EaseOptions & AnimationOptions<Value>>): FramerAnimation<Value, BezierOptions>;
+    export function ease<Value>(from: DeprecatedAnimationTarget<Value>, to: Value, options?: Partial<EaseOptions & DeprecatedAnimationOptions<Value>>): FramerAnimation<Value, BezierOptions>;
     /**
      * Animate value with a ease in animation
      * @remarks
@@ -242,7 +257,7 @@ export declare namespace animate {
      * @returns Instance of {@link FramerAnimation} that can be used to control the animation
      * @deprecated Use {@link MotionProps.animate} on {@link Frame} instead.
      */
-    export function easeIn<Value>(from: DeprecatedAnimationTarget<Value>, to: Value, options?: Partial<EaseOptions & AnimationOptions<Value>>): FramerAnimation<Value, BezierOptions>;
+    export function easeIn<Value>(from: DeprecatedAnimationTarget<Value>, to: Value, options?: Partial<EaseOptions & DeprecatedAnimationOptions<Value>>): FramerAnimation<Value, BezierOptions>;
     /**
      * Animate value with a ease out animation
      * @remarks
@@ -261,7 +276,7 @@ export declare namespace animate {
      * @returns Instance of {@link FramerAnimation} that can be used to control the animation
      * @deprecated Use {@link MotionProps.animate} on {@link Frame} instead.
      */
-    export function easeOut<Value>(from: DeprecatedAnimationTarget<Value>, to: Value, options?: Partial<EaseOptions & AnimationOptions<Value>>): FramerAnimation<Value, BezierOptions>;
+    export function easeOut<Value>(from: DeprecatedAnimationTarget<Value>, to: Value, options?: Partial<EaseOptions & DeprecatedAnimationOptions<Value>>): FramerAnimation<Value, BezierOptions>;
     /**
      * Animate value with a ease in out animation
      * @remarks
@@ -280,7 +295,7 @@ export declare namespace animate {
      * @returns Instance of {@link FramerAnimation} that can be used to control the animation
      * @deprecated Use {@link MotionProps.animate} on {@link Frame} instead.
      */
-    export function easeInOut<Value>(from: DeprecatedAnimationTarget<Value>, to: Value, options?: Partial<EaseOptions & AnimationOptions<Value>>): FramerAnimation<Value, BezierOptions>;
+    export function easeInOut<Value>(from: DeprecatedAnimationTarget<Value>, to: Value, options?: Partial<EaseOptions & DeprecatedAnimationOptions<Value>>): FramerAnimation<Value, BezierOptions>;
 }
 
 /* Excluded from this release type: AnimationDriver */
@@ -295,13 +310,15 @@ declare interface AnimationInterface {
     isFinished(): boolean;
 }
 
-/**
- * @deprecated Use {@link FrameProps.transition} instead
- */
-declare interface AnimationOptions<Value> extends InterpolationOptions {
-    /* Excluded from this release type: customInterpolation */
-    /* Excluded from this release type: precalculate */
-}
+declare type AnimationOptions<V> = (Tween | Spring) & PlaybackLifecycles<V> & {
+    delay?: number;
+    type?: "tween" | "spring";
+};
+
+declare type AnimationOptions_2 = (Tween | Spring) & {
+    delay?: number;
+    type?: "tween" | "spring";
+};
 
 /* Excluded from this release type: Animator */
 
@@ -325,7 +342,11 @@ export declare interface ArrayControlDescription<P = any> extends BaseControlDes
     defaultValue?: any[];
 }
 
+/* Excluded from this release type: Asset */
+
 /* Excluded from this release type: AssetContext */
+
+/* Excluded from this release type: AssetProperties */
 
 /* Excluded from this release type: AssetResolver */
 
@@ -367,6 +388,8 @@ export declare interface BackgroundImage {
 export declare namespace BackgroundImage {
     const isImageObject: (image: any) => image is object & BackgroundImage;
 }
+
+/* Excluded from this release type: BackgroundImageProps */
 
 /** @public */
 export declare interface BackgroundProperties {
@@ -513,14 +536,6 @@ declare interface Change<Value> {
 /* Excluded from this release type: CodeComponentPresentation */
 
 /* Excluded from this release type: collectBackgroundImageFromProps */
-
-/* Excluded from this release type: collectBlendingFromProps */
-
-/* Excluded from this release type: collectBorderStyleForProps */
-
-/* Excluded from this release type: collectFiltersFromProps */
-
-/* Excluded from this release type: collectOpacityFromProps */
 
 /* Excluded from this release type: collectVisualStyleFromProps */
 
@@ -1780,8 +1795,6 @@ declare interface CustomConstraintProperties {
     intrinsicHeight?: number;
 }
 
-/* Excluded from this release type: CustomFontAssetData */
-
 /* Excluded from this release type: CustomFontSource */
 
 declare interface CustomMotionProps {
@@ -1857,6 +1870,8 @@ declare interface CustomMotionProps {
  */
 declare type CustomPropertiesLookup = (variable: string) => string | null;
 
+/* Excluded from this release type: CycleVariantState */
+
 declare interface DampingDurationSpringOptions {
     dampingRatio: number;
     duration: number;
@@ -1928,6 +1943,14 @@ declare type DeepReadonly<T> = {
 declare const defaultId: unique symbol;
 
 /* Excluded from this release type: DefaultProps */
+
+/**
+ * @deprecated Use {@link FrameProps.transition} instead
+ */
+declare interface DeprecatedAnimationOptions<Value> extends InterpolationOptions {
+    /* Excluded from this release type: customInterpolation */
+    /* Excluded from this release type: precalculate */
+}
 
 /**
  * @public
@@ -2124,32 +2147,6 @@ export declare type DeprecatedVisualProperties = Partial<BackgroundProperties & 
 
 /* Excluded from this release type: DesignComponentDefinition */
 
-/* Excluded from this release type: desktopAssetResolver */
-
-/* Excluded from this release type: Device */
-
-/* Excluded from this release type: DeviceDescriptor */
-
-/* Excluded from this release type: DeviceHand */
-
-/* Excluded from this release type: DeviceHands */
-
-/* Excluded from this release type: DeviceProperties */
-
-/* Excluded from this release type: DeviceRegistry */
-
-/* Excluded from this release type: DeviceRenderer */
-
-/* Excluded from this release type: DeviceRendererMode */
-
-/* Excluded from this release type: DeviceRendererProperties */
-
-/* Excluded from this release type: DevicesData */
-
-/* Excluded from this release type: DeviceSkin */
-
-/* Excluded from this release type: DeviceSkins */
-
 /* Excluded from this release type: DimensionType */
 
 /* Excluded from this release type: dispatchKeyDownEvent */
@@ -2158,11 +2155,38 @@ export declare type DeprecatedVisualProperties = Partial<BackgroundProperties & 
 
 /* Excluded from this release type: draftBlockRendererFunction */
 
+/* Excluded from this release type: draftContentStateToHTML */
+
+/* Excluded from this release type: DraftFontProperties */
+
+declare type DraftPrefix = keyof typeof DraftPrefixes;
+
+declare const DraftPrefixes: {
+    FONT: string;
+    COLOR: string;
+    SIZE: string;
+    LETTERSPACING: string;
+    LINEHEIGHT: string;
+    ALIGN: string;
+    BOLD: string;
+    ITALIC: string;
+    UNDERLINE: string;
+    SELECTION: string;
+    TEXTDECORATION: string;
+    TEXTTRANSFORM: string;
+};
+
+/* Excluded from this release type: DraftStyleDefinitions */
+
+/* Excluded from this release type: draftStyleDefinitions */
+
+/* Excluded from this release type: draftStyleDefinitionsFuture */
+
 /* Excluded from this release type: draftStyleFunction */
 
-/* Excluded from this release type: DraftStyles */
+/* Excluded from this release type: draftStyleFunctionFuture */
 
-/* Excluded from this release type: draftStyles */
+/* Excluded from this release type: DraftStyles */
 
 declare type DragEventHandler<Draggable> = (event: FramerEvent, draggable: Draggable) => void;
 
@@ -2230,6 +2254,13 @@ declare type EaseOptions = Omit<BezierOptions, "curve">;
 
 /* Excluded from this release type: EmptyState */
 
+declare interface EnabledGestures {
+    hover: boolean;
+    pressed: boolean;
+}
+
+declare type EnabledVariantGestures = Record<string, EnabledGestures>;
+
 /** @public */
 export declare interface EnumControlDescription<P = any> extends BaseControlDescription<P> {
     type: ControlType.Enum;
@@ -2275,10 +2306,6 @@ export declare interface EventHandlerControlDescription<P = any> extends BaseCon
 
 /* Excluded from this release type: executeInRenderEnvironment */
 
-/* Excluded from this release type: ExternalDeviceHand */
-
-/* Excluded from this release type: ExternalDeviceSkin */
-
 /**
  * @public
  */
@@ -2319,6 +2346,8 @@ declare type FinishFunction = (transaction: TransactionId) => void;
 
 declare type FlatControlDescription<P = any> = Omit_2<NumberControlDescription<P>, "hidden"> | Omit_2<EnumControlDescription<P>, "hidden"> | Omit_2<BooleanControlDescription<P>, "hidden"> | Omit_2<StringControlDescription<P>, "hidden"> | Omit_2<ColorControlDescription<P>, "hidden"> | Omit_2<FusedNumberControlDescription<P>, "hidden"> | Omit_2<SegmentedEnumControlDescription<P>, "hidden"> | Omit_2<ImageControlDescription<P>, "hidden"> | Omit_2<FileControlDescription<P>, "hidden"> | Omit_2<ComponentInstanceDescription<P>, "hidden"> | Omit_2<TransitionControlDescription<P>, "hidden">;
 
+declare type FlexDirection = "column" | "row" | "column-reverse" | "row-reverse";
+
 /**
  * @public
  */
@@ -2327,7 +2356,14 @@ export declare interface FlipTransitionOptions extends NavigationTransitionAnima
 
 /* Excluded from this release type: Font */
 
-/* Excluded from this release type: FontMetadata */
+declare interface FontFaceData {
+    family: string;
+    url: string;
+    weight?: number;
+    style?: string;
+}
+
+/* Excluded from this release type: FontMetaData */
 
 /* Excluded from this release type: FontSource */
 
@@ -2347,6 +2383,8 @@ declare interface FontVariant {
 }
 
 /* Excluded from this release type: forceLayerBackingWithCSSProperties */
+
+/* Excluded from this release type: fraction */
 
 /** @public */
 export declare const Frame: React.ForwardRefExoticComponent<Partial<FrameProps> & React.RefAttributes<HTMLDivElement>>;
@@ -2554,42 +2592,6 @@ export declare class FramerAnimation<Value, AnimatorOptions> {
 
 declare type FramerAnimationState = "idle" | "running" | "finished";
 
-/* Excluded from this release type: FramerAppleIMac */
-
-/* Excluded from this release type: FramerAppleIPadAir */
-
-/* Excluded from this release type: FramerAppleIPadMini */
-
-/* Excluded from this release type: FramerAppleIPadPro */
-
-/* Excluded from this release type: FramerAppleIPhone8 */
-
-/* Excluded from this release type: FramerAppleIPhone8Plus */
-
-/* Excluded from this release type: FramerAppleIPhoneSE */
-
-/* Excluded from this release type: FramerAppleIPhoneX */
-
-/* Excluded from this release type: FramerAppleIPhoneXR */
-
-/* Excluded from this release type: FramerAppleIPhoneXS */
-
-/* Excluded from this release type: FramerAppleIPhoneXSMax */
-
-/* Excluded from this release type: FramerAppleMacBook */
-
-/* Excluded from this release type: FramerAppleMacBookAir */
-
-/* Excluded from this release type: FramerAppleMacBookPro */
-
-/* Excluded from this release type: FramerAppleThunderboltDisplay */
-
-/* Excluded from this release type: FramerAppleWatch38 */
-
-/* Excluded from this release type: FramerAppleWatch42 */
-
-/* Excluded from this release type: FramerDellXPS */
-
 /**
  * @public
  */
@@ -2613,46 +2615,6 @@ export declare class FramerEvent {
 
 /* Excluded from this release type: FramerEventSession */
 
-/* Excluded from this release type: FramerGoogleNexus4 */
-
-/* Excluded from this release type: FramerGoogleNexus5X */
-
-/* Excluded from this release type: FramerGoogleNexus6 */
-
-/* Excluded from this release type: FramerGoogleNexusTablet */
-
-/* Excluded from this release type: FramerGooglePixel2 */
-
-/* Excluded from this release type: FramerGooglePixel2XL */
-
-/* Excluded from this release type: FramerGooglePixel3 */
-
-/* Excluded from this release type: FramerGooglePixel3XL */
-
-/* Excluded from this release type: FramerHTCOneA9 */
-
-/* Excluded from this release type: FramerMicrosoftLumia950 */
-
-/* Excluded from this release type: FramerMicrosoftSurfaceBook */
-
-/* Excluded from this release type: FramerMicrosoftSurfacePro3 */
-
-/* Excluded from this release type: FramerMicrosoftSurfacePro4 */
-
-/* Excluded from this release type: FramerSamsungGalaxyS8 */
-
-/* Excluded from this release type: FramerSamsungGalaxyS9 */
-
-/* Excluded from this release type: FramerSamsungNote5 */
-
-/* Excluded from this release type: FramerSonySmartWatch */
-
-/* Excluded from this release type: FramerSonyW850C */
-
-/* Excluded from this release type: FramerStoreArtwork */
-
-/* Excluded from this release type: FramerStoreIcon */
-
 /* Excluded from this release type: FrameWithMotion */
 
 /** @public */
@@ -2668,15 +2630,40 @@ export declare interface FusedNumberControlDescription<P = any> extends BaseCont
 
 /* Excluded from this release type: GestureHandler */
 
+declare type GestureState = Partial<{
+    isHovered: boolean;
+    isPressed: boolean;
+}>;
+
 /* Excluded from this release type: getConfigFromPreviewURL */
 
 /* Excluded from this release type: getConfigFromVekterURL */
+
+/* Excluded from this release type: getDraftContent */
+
+/* Excluded from this release type: getDraftEmptyStyles */
+
+/* Excluded from this release type: getDraftFirstTextAlignment */
+
+/* Excluded from this release type: getDraftRangeFromSelection */
+
+/* Excluded from this release type: getDraftReplacedStyles */
+
+/* Excluded from this release type: getDraftStylesWithPrefix */
+
+/* Excluded from this release type: getDraftStylesWithPrefixCoverRange */
+
+/* Excluded from this release type: getDraftText */
+
+/* Excluded from this release type: getHTMLSizeCached */
 
 /* Excluded from this release type: GetLayoutId */
 
 /* Excluded from this release type: getMergedConstraintsProps */
 
 /* Excluded from this release type: getPropertyControls */
+
+/* Excluded from this release type: getReactStylesFromDraft */
 
 /* Excluded from this release type: getStyleForTypefaceOrSelector */
 
@@ -2705,6 +2692,8 @@ export declare interface IdentityProps {
     duplicatedFrom?: string[];
 }
 
+/* Excluded from this release type: Image */
+
 /** @public */
 export declare interface ImageControlDescription<P = any> extends BaseControlDescription<P> {
     type: ControlType.Image;
@@ -2720,6 +2709,8 @@ declare interface ImagePatternElementProperties {
 }
 
 /* Excluded from this release type: imagePatternPropsForFill */
+
+/* Excluded from this release type: ImageProps */
 
 /* Excluded from this release type: _imageURL */
 
@@ -2763,6 +2754,10 @@ declare interface InterpolationOptions {
 
 /* Excluded from this release type: isFiniteNumber */
 
+/* Excluded from this release type: isFractionDimension */
+
+/* Excluded from this release type: isGapEnabled */
+
 /* Excluded from this release type: isMotionValue */
 
 /* Excluded from this release type: isOfAnnotatedType */
@@ -2801,22 +2796,6 @@ export declare interface LayerProps extends IdentityProps, WillChangeTransformPr
 
 /* Excluded from this release type: LayoutIdContext */
 
-declare interface LayoutMetrics {
-    clientTop: number;
-    clientLeft: number;
-    clientWidth: number;
-    clientHeight: number;
-    scrollWidth: number;
-    scrollHeight: number;
-    offsetTop?: number;
-    offsetLeft?: number;
-    offsetWidth?: number;
-    offsetHeight?: number;
-    computedStyleWidth: string;
-    computedStyleHeight: string;
-    children?: LayoutMetrics[];
-}
-
 declare interface LayoutProperties extends PositionProperties, SizeProperties {
 }
 
@@ -2853,6 +2832,8 @@ export declare interface LinearGradientBase {
 
 /* Excluded from this release type: LineJoin */
 
+/* Excluded from this release type: loadFont */
+
 /* Excluded from this release type: loadJSON */
 
 /* Excluded from this release type: LocalFontSource */
@@ -2883,6 +2864,8 @@ declare class Loop extends EventEmitter<LoopEventNames> {
 declare type LoopEventNames = "render" | "update" | "finish";
 
 /* Excluded from this release type: MainLoop */
+
+/* Excluded from this release type: makePaddingString */
 
 /* Excluded from this release type: memoize */
 
@@ -3136,6 +3119,17 @@ export declare type OverrideFunction<P extends object = any> = (props: P) => Par
 export declare type OverrideObject<T extends object = any> = Partial<T>;
 
 /* Excluded from this release type: PackageIdentifier */
+
+/* Excluded from this release type: paddingFromProps */
+
+declare interface PaddingProps {
+    padding?: number;
+    paddingPerSide?: boolean;
+    paddingTop?: number;
+    paddingRight?: number;
+    paddingBottom?: number;
+    paddingLeft?: number;
+}
 
 /**
  * The Page component allows you to create horizontally or vertically swipeable areas. It can be
@@ -3517,6 +3511,18 @@ export declare interface PageProps extends PageProperties, Partial<Omit<FramePro
 
 /* Excluded from this release type: PathSegments */
 
+declare interface PlaybackControls {
+    stop: () => void;
+}
+
+declare interface PlaybackLifecycles<V> {
+    onUpdate?: (latest: V) => void;
+    onPlay?: () => void;
+    onComplete?: () => void;
+    onRepeat?: () => void;
+    onStop?: () => void;
+}
+
 /**
  * @public
  */
@@ -3649,6 +3655,8 @@ export declare interface RadiusProperties {
 
 declare type RadiusValue = number | Animatable<number> | string;
 
+declare type Range = [number, number];
+
 /* Excluded from this release type: ReactComponentDefinition */
 
 /* Excluded from this release type: ReactComponentDefinitionProvider */
@@ -3742,8 +3750,6 @@ declare interface RelayoutInfo {
 declare type RenderNode = (nodeId: string) => React.ReactNode;
 
 /* Excluded from this release type: RenderNodeProvider */
-
-/* Excluded from this release type: renderPresentationTree */
 
 /**
  * The `RenderTarget` represents the current environment in which a component
@@ -4323,6 +4329,8 @@ export declare interface StackSpecificProps {
     /* Excluded from this release type: __fromCodeComponentNode */
 }
 
+/* Excluded from this release type: startAnimation */
+
 /* Excluded from this release type: State */
 
 /* Excluded from this release type: State_2 */
@@ -4342,7 +4350,7 @@ export declare interface StringControlDescription<P = any> extends BaseControlDe
 
 /* Excluded from this release type: StyleHandler */
 
-/* Excluded from this release type: styles */
+/* Excluded from this release type: StyleHandler_2 */
 
 /* Excluded from this release type: SVG */
 
@@ -4374,6 +4382,10 @@ export declare interface TextColorProperties {
 
 /* Excluded from this release type: TextDecoration */
 
+/* Excluded from this release type: TextDecoration_2 */
+
+/* Excluded from this release type: TextDirection */
+
 /* Excluded from this release type: TextLineHeightUnit */
 
 /* Excluded from this release type: TextProperties */
@@ -4382,11 +4394,17 @@ export declare interface TextColorProperties {
 
 /* Excluded from this release type: TextTransform */
 
+/* Excluded from this release type: TextTransform_2 */
+
 /* Excluded from this release type: TextVerticalAlignment */
 
 /* Excluded from this release type: throttle */
 
 declare type ToAnimatableOrValue<PossiblyAnimatable> = PossiblyAnimatable extends Animatable<infer Value> ? Value | Animatable<Value> : PossiblyAnimatable | Animatable<PossiblyAnimatable>;
+
+/* Excluded from this release type: toFlexDirection */
+
+/* Excluded from this release type: toJustifyOrAlignment */
 
 /* Excluded from this release type: TokenDefinition */
 
@@ -4421,6 +4439,8 @@ export declare interface TransitionControlDescription<P = any> extends BaseContr
 
 /* Excluded from this release type: TypefaceSourceNames */
 
+declare type UnknownProps = Record<string, unknown>;
+
 /**
  * @public
  */
@@ -4452,9 +4472,27 @@ export declare function useNavigation(): NavigationInterface;
 
 /* Excluded from this release type: useResourceLoading */
 
+/* Excluded from this release type: useVariantState */
+
 /* Excluded from this release type: ValueInterpolation */
 
 /* Excluded from this release type: valueToDimensionType */
+
+declare type VariantNames = string[];
+
+/**
+ * Variant / Node Id / React Prop / Val
+ */
+declare type VariantProps = Record<string, Record<string, UnknownProps>>;
+
+declare interface VariantState {
+    variants: VariantNames;
+    classNames: string;
+    transition: Partial<Transition> | undefined;
+    addVariantProps: (elementId: string) => UnknownProps;
+    setVariant: (variant: string) => void;
+    setGestureState: (gestureState: GestureState) => void;
+}
 
 /* Excluded from this release type: Vector */
 
@@ -4472,7 +4510,7 @@ export declare function useNavigation(): NavigationInterface;
  * This version is automatically updated by the Makefile
  * @public
  */
-export declare const version = "1.2.9";
+export declare const version = "1.2.10";
 
 /**
  * @internalremarks do no use separately from FrameProps
@@ -4589,6 +4627,8 @@ declare interface WillChangeTransformProp {
     willChangeTransform?: boolean;
 }
 
+/* Excluded from this release type: withCSS */
+
 declare interface WithEventsProperties extends WithPanHandlers, WithTapHandlers, WithMouseHandlers, WithMouseWheelHandler {
 }
 
@@ -4624,8 +4664,6 @@ export declare interface WithOpacity {
 /* Excluded from this release type: withOpacity */
 
 /* Excluded from this release type: WithOverride */
-
-/* Excluded from this release type: WithPackage */
 
 declare interface WithPanHandlers {
     onPanStart: EventHandler;

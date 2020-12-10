@@ -496,7 +496,7 @@
         {
           "kind": "Function",
           "canonicalReference": "framer!animate:function(1)",
-          "docComment": "/**\n * Animate an {@link (Animatable:interface)} value to a new value.\n *\n * @remarks\n *\n * Recommended use is to use convenience functions from the `animate` namespace instead of passing an animator. Only use this for low-level animation tweaking.\n * ```jsx\n * const value = Animatable(0)\n * animate(value, 100)\n *\n * const value = Animatable({x: 0, y: 0})\n * animate(value, {x: 100, y: 100})\n * ```\n *\n * @deprecated\n *\n * Use the {@link AnimationProps.animate} prop on {@link Frame} instead.\n *\n * @param from - The animatable value or object to start from\n *\n * @param to - Value to animate to\n *\n * @param animator - Animator class to use.\n *\n * @param options - Animation options\n *\n * @returns Instance of {@link FramerAnimation} that can be used to control the animation\n *\n * @public\n */\n",
+          "docComment": "/**\n * Animate a single value or a `MotionValue`.\n *\n * The first argument is either a `MotionValue` to animate, or an initial animation value.\n *\n * The second is either a value to animate to, or an array of keyframes to animate through.\n *\n * The third argument can be either tween or spring options, and optional lifecycle methods: `onUpdate`, `onPlay`, `onComplete`, `onRepeat` and `onStop`.\n *\n * Returns `PlaybackControls`, currently just a `stop` method.\n * ```javascript\n * const x = useMotionValue(0)\n *\n * useEffect(() => {\n *   const controls = animate(x, 100, {\n *     type: \"spring\",\n *     stiffness: 2000,\n *     onComplete: v => {}\n *   })\n *\n *   return controls.stop\n * })\n * ```\n *\n * @deprecated\n *\n * @public\n */\n",
           "excerptTokens": [
             {
               "kind": "Content",
@@ -547,8 +547,8 @@
             },
             {
               "kind": "Reference",
-              "text": "AnimationOptions",
-              "canonicalReference": "framer!AnimationOptions:interface"
+              "text": "DeprecatedAnimationOptions",
+              "canonicalReference": "framer!DeprecatedAnimationOptions:interface"
             },
             {
               "kind": "Content",
@@ -635,6 +635,103 @@
           "name": "animate"
         },
         {
+          "kind": "Function",
+          "canonicalReference": "framer!animate:function(2)",
+          "docComment": "/**\n * @public\n */\n",
+          "excerptTokens": [
+            {
+              "kind": "Content",
+              "text": "export declare function animate<V>(from: "
+            },
+            {
+              "kind": "Reference",
+              "text": "MotionValue",
+              "canonicalReference": "framer-motion!MotionValue:class"
+            },
+            {
+              "kind": "Content",
+              "text": "<V> | V"
+            },
+            {
+              "kind": "Content",
+              "text": ", to: "
+            },
+            {
+              "kind": "Content",
+              "text": "V | V[]"
+            },
+            {
+              "kind": "Content",
+              "text": ", transition?: "
+            },
+            {
+              "kind": "Reference",
+              "text": "AnimationOptions",
+              "canonicalReference": "framer!~AnimationOptions:type"
+            },
+            {
+              "kind": "Content",
+              "text": "<V>"
+            },
+            {
+              "kind": "Content",
+              "text": "): "
+            },
+            {
+              "kind": "Reference",
+              "text": "PlaybackControls",
+              "canonicalReference": "framer!~PlaybackControls:interface"
+            },
+            {
+              "kind": "Content",
+              "text": ";"
+            }
+          ],
+          "returnTypeTokenRange": {
+            "startIndex": 9,
+            "endIndex": 10
+          },
+          "releaseTag": "Public",
+          "overloadIndex": 2,
+          "parameters": [
+            {
+              "parameterName": "from",
+              "parameterTypeTokenRange": {
+                "startIndex": 1,
+                "endIndex": 3
+              }
+            },
+            {
+              "parameterName": "to",
+              "parameterTypeTokenRange": {
+                "startIndex": 4,
+                "endIndex": 5
+              }
+            },
+            {
+              "parameterName": "transition",
+              "parameterTypeTokenRange": {
+                "startIndex": 6,
+                "endIndex": 8
+              }
+            }
+          ],
+          "typeParameters": [
+            {
+              "typeParameterName": "V",
+              "constraintTokenRange": {
+                "startIndex": 0,
+                "endIndex": 0
+              },
+              "defaultTypeTokenRange": {
+                "startIndex": 0,
+                "endIndex": 0
+              }
+            }
+          ],
+          "name": "animate"
+        },
+        {
           "kind": "Namespace",
           "canonicalReference": "framer!animate:namespace",
           "docComment": "/**\n * @deprecated\n *\n * Use the {@link MotionProps.animate} prop on {@link Frame} instead.\n *\n * @public\n */\n",
@@ -697,8 +794,8 @@
                 },
                 {
                   "kind": "Reference",
-                  "text": "AnimationOptions",
-                  "canonicalReference": "framer!AnimationOptions:interface"
+                  "text": "DeprecatedAnimationOptions",
+                  "canonicalReference": "framer!DeprecatedAnimationOptions:interface"
                 },
                 {
                   "kind": "Content",
@@ -825,8 +922,8 @@
                 },
                 {
                   "kind": "Reference",
-                  "text": "AnimationOptions",
-                  "canonicalReference": "framer!AnimationOptions:interface"
+                  "text": "DeprecatedAnimationOptions",
+                  "canonicalReference": "framer!DeprecatedAnimationOptions:interface"
                 },
                 {
                   "kind": "Content",
@@ -953,8 +1050,8 @@
                 },
                 {
                   "kind": "Reference",
-                  "text": "AnimationOptions",
-                  "canonicalReference": "framer!AnimationOptions:interface"
+                  "text": "DeprecatedAnimationOptions",
+                  "canonicalReference": "framer!DeprecatedAnimationOptions:interface"
                 },
                 {
                   "kind": "Content",
@@ -1081,8 +1178,8 @@
                 },
                 {
                   "kind": "Reference",
-                  "text": "AnimationOptions",
-                  "canonicalReference": "framer!AnimationOptions:interface"
+                  "text": "DeprecatedAnimationOptions",
+                  "canonicalReference": "framer!DeprecatedAnimationOptions:interface"
                 },
                 {
                   "kind": "Content",
@@ -1209,8 +1306,8 @@
                 },
                 {
                   "kind": "Reference",
-                  "text": "AnimationOptions",
-                  "canonicalReference": "framer!AnimationOptions:interface"
+                  "text": "DeprecatedAnimationOptions",
+                  "canonicalReference": "framer!DeprecatedAnimationOptions:interface"
                 },
                 {
                   "kind": "Content",
@@ -1337,8 +1434,8 @@
                 },
                 {
                   "kind": "Reference",
-                  "text": "AnimationOptions",
-                  "canonicalReference": "framer!AnimationOptions:interface"
+                  "text": "DeprecatedAnimationOptions",
+                  "canonicalReference": "framer!DeprecatedAnimationOptions:interface"
                 },
                 {
                   "kind": "Content",
@@ -1465,8 +1562,8 @@
                 },
                 {
                   "kind": "Reference",
-                  "text": "AnimationOptions",
-                  "canonicalReference": "framer!AnimationOptions:interface"
+                  "text": "DeprecatedAnimationOptions",
+                  "canonicalReference": "framer!DeprecatedAnimationOptions:interface"
                 },
                 {
                   "kind": "Content",
@@ -8146,6 +8243,27 @@
               "endIndex": 3
             }
           ]
+        },
+        {
+          "kind": "Variable",
+          "canonicalReference": "framer!CycleVariantState:var",
+          "docComment": "/**\n * Flag setVariantState as cycling variants.\n *\n * @beta\n */\n",
+          "excerptTokens": [
+            {
+              "kind": "Content",
+              "text": "CycleVariantState: "
+            },
+            {
+              "kind": "Content",
+              "text": "unique symbol"
+            }
+          ],
+          "releaseTag": "Beta",
+          "name": "CycleVariantState",
+          "variableTypeTokenRange": {
+            "startIndex": 1,
+            "endIndex": 2
+          }
         },
         {
           "kind": "Function",
@@ -17907,13 +18025,102 @@
           "name": "useNavigation"
         },
         {
+          "kind": "Function",
+          "canonicalReference": "framer!useVariantState:function(1)",
+          "docComment": "/**\n * Handle stateful logic in Framer Canvas Components.\n *\n * @beta\n */\n",
+          "excerptTokens": [
+            {
+              "kind": "Content",
+              "text": "export declare function useVariantState({ defaultVariant, variant, transitions, variantProps, enabledGestures, cycleOrder, }: "
+            },
+            {
+              "kind": "Content",
+              "text": "{\n    defaultVariant: string;\n    cycleOrder: string[];\n    variant?: string;\n    transitions?: "
+            },
+            {
+              "kind": "Reference",
+              "text": "Record",
+              "canonicalReference": "!Record:type"
+            },
+            {
+              "kind": "Content",
+              "text": "<string, "
+            },
+            {
+              "kind": "Reference",
+              "text": "Partial",
+              "canonicalReference": "!Partial:type"
+            },
+            {
+              "kind": "Content",
+              "text": "<"
+            },
+            {
+              "kind": "Reference",
+              "text": "Transition",
+              "canonicalReference": "framer-motion!Transition:type"
+            },
+            {
+              "kind": "Content",
+              "text": ">>;\n    variantProps?: "
+            },
+            {
+              "kind": "Reference",
+              "text": "VariantProps",
+              "canonicalReference": "framer!~VariantProps:type"
+            },
+            {
+              "kind": "Content",
+              "text": ";\n    enabledGestures?: "
+            },
+            {
+              "kind": "Reference",
+              "text": "EnabledVariantGestures",
+              "canonicalReference": "framer!~EnabledVariantGestures:type"
+            },
+            {
+              "kind": "Content",
+              "text": ";\n}"
+            },
+            {
+              "kind": "Content",
+              "text": "): "
+            },
+            {
+              "kind": "Reference",
+              "text": "VariantState",
+              "canonicalReference": "framer!~VariantState:interface"
+            },
+            {
+              "kind": "Content",
+              "text": ";"
+            }
+          ],
+          "returnTypeTokenRange": {
+            "startIndex": 13,
+            "endIndex": 14
+          },
+          "releaseTag": "Beta",
+          "overloadIndex": 1,
+          "parameters": [
+            {
+              "parameterName": "{ defaultVariant, variant, transitions, variantProps, enabledGestures, cycleOrder, }",
+              "parameterTypeTokenRange": {
+                "startIndex": 1,
+                "endIndex": 12
+              }
+            }
+          ],
+          "name": "useVariantState"
+        },
+        {
           "kind": "Variable",
           "canonicalReference": "framer!version:var",
           "docComment": "/**\n * This version is automatically updated by the Makefile\n *\n * @public\n */\n",
           "excerptTokens": [
             {
               "kind": "Content",
-              "text": "version = \"1.2.9\""
+              "text": "version = \"1.2.10\""
             }
           ],
           "releaseTag": "Public",
@@ -18242,6 +18449,41 @@
             }
           ],
           "extendsTokenRanges": []
+        },
+        {
+          "kind": "Variable",
+          "canonicalReference": "framer!withCSS:var",
+          "docComment": "/**\n * Render a React component with css included in a sibling <style> tag.\n *\n * @beta\n */\n",
+          "excerptTokens": [
+            {
+              "kind": "Content",
+              "text": "withCSS: "
+            },
+            {
+              "kind": "Content",
+              "text": "<T extends object>(Component: "
+            },
+            {
+              "kind": "Reference",
+              "text": "React.ComponentType",
+              "canonicalReference": "@types/react!~React.ComponentType:type"
+            },
+            {
+              "kind": "Content",
+              "text": "<T>, escapedCSS: string) => (props: T) => "
+            },
+            {
+              "kind": "Reference",
+              "text": "JSX.Element",
+              "canonicalReference": "@types/react!~__global.JSX.Element:interface"
+            }
+          ],
+          "releaseTag": "Beta",
+          "name": "withCSS",
+          "variableTypeTokenRange": {
+            "startIndex": 1,
+            "endIndex": 5
+          }
         },
         {
           "kind": "Interface",
