@@ -1,0 +1,11 @@
+@font-face {
+  font-family: "CooperBlack";
+  src: url("CooperBlack.eot");
+  src: url("CooperBlack.eot?#iefix") format("embedded-opentype"),
+    url("CooperBlack.woff2") format("woff2"),
+    url("CooperBlack.woff") format("woff"),
+    url("CooperBlack.ttf") format("truetype");
+  font-weight: 900;
+  font-style: normal;
+  font-display: swap;
+}

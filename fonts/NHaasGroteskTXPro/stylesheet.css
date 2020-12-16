@@ -1,11 +1,11 @@
 @font-face {
-  font-family: "NHaasGroteskTXPro-55Rg";
-  src: url("NHaasGroteskTXPro-55Rg.eot");
-  src: url("NHaasGroteskTXPro-55Rg.eot?#iefix") format("embedded-opentype"),
-    url("NHaasGroteskTXPro-55Rg.woff2") format("woff2"),
-    url("NHaasGroteskTXPro-55Rg.woff") format("woff"),
-    url("NHaasGroteskTXPro-55Rg.ttf") format("truetype");
-  font-weight: normal;
+  font-family: "NHaasGroteskTXPro-75Bd";
+  src: url("NHaasGroteskTXPro-75Bd.eot");
+  src: url("NHaasGroteskTXPro-75Bd.eot?#iefix") format("embedded-opentype"),
+    url("NHaasGroteskTXPro-75Bd.woff2") format("woff2"),
+    url("NHaasGroteskTXPro-75Bd.woff") format("woff"),
+    url("NHaasGroteskTXPro-75Bd.ttf") format("truetype");
+  font-weight: bold;
   font-style: normal;
   font-display: swap;
 }
@@ -23,13 +23,13 @@
 }
 
 @font-face {
-  font-family: "NHaasGroteskTXPro-75Bd";
-  src: url("NHaasGroteskTXPro-75Bd.eot");
-  src: url("NHaasGroteskTXPro-75Bd.eot?#iefix") format("embedded-opentype"),
-    url("NHaasGroteskTXPro-75Bd.woff2") format("woff2"),
-    url("NHaasGroteskTXPro-75Bd.woff") format("woff"),
-    url("NHaasGroteskTXPro-75Bd.ttf") format("truetype");
-  font-weight: bold;
+  font-family: "NHaasGroteskTXPro-55Rg";
+  src: url("NHaasGroteskTXPro-55Rg.eot");
+  src: url("NHaasGroteskTXPro-55Rg.eot?#iefix") format("embedded-opentype"),
+    url("NHaasGroteskTXPro-55Rg.woff2") format("woff2"),
+    url("NHaasGroteskTXPro-55Rg.woff") format("woff"),
+    url("NHaasGroteskTXPro-55Rg.ttf") format("truetype");
+  font-weight: normal;
   font-style: normal;
   font-display: swap;
 }

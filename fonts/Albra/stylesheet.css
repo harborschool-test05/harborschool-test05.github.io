@@ -1,11 +1,11 @@
 @font-face {
-  font-family: "AlbraRegular";
-  src: url("AlbraRegular.eot");
-  src: url("AlbraRegular.eot?#iefix") format("embedded-opentype"),
-    url("AlbraRegular.woff2") format("woff2"),
-    url("AlbraRegular.woff") format("woff"),
-    url("AlbraRegular.ttf") format("truetype");
-  font-weight: normal;
+  font-family: "AlbraLight";
+  src: url("AlbraLight.eot");
+  src: url("AlbraLight.eot?#iefix") format("embedded-opentype"),
+    url("AlbraLight.woff2") format("woff2"),
+    url("AlbraLight.woff") format("woff"),
+    url("AlbraLight.ttf") format("truetype");
+  font-weight: 300;
   font-style: normal;
   font-display: swap;
 }
@@ -23,24 +23,24 @@
 }
 
 @font-face {
-  font-family: "AlbraLight";
-  src: url("AlbraLight.eot");
-  src: url("AlbraLight.eot?#iefix") format("embedded-opentype"),
-    url("AlbraLight.woff2") format("woff2"),
-    url("AlbraLight.woff") format("woff"),
-    url("AlbraLight.ttf") format("truetype");
-  font-weight: 300;
+  font-family: "AlbraBold";
+  src: url("AlbraBold.eot");
+  src: url("AlbraBold.eot?#iefix") format("embedded-opentype"),
+    url("AlbraBold.woff2") format("woff2"), url("AlbraBold.woff") format("woff"),
+    url("AlbraBold.ttf") format("truetype");
+  font-weight: bold;
   font-style: normal;
   font-display: swap;
 }
 
 @font-face {
-  font-family: "AlbraSemi";
-  src: url("AlbraSemi.eot");
-  src: url("AlbraSemi.eot?#iefix") format("embedded-opentype"),
-    url("AlbraSemi.woff2") format("woff2"), url("AlbraSemi.woff") format("woff"),
-    url("AlbraSemi.ttf") format("truetype");
-  font-weight: 600;
+  font-family: "AlbraRegular";
+  src: url("AlbraRegular.eot");
+  src: url("AlbraRegular.eot?#iefix") format("embedded-opentype"),
+    url("AlbraRegular.woff2") format("woff2"),
+    url("AlbraRegular.woff") format("woff"),
+    url("AlbraRegular.ttf") format("truetype");
+  font-weight: normal;
   font-style: normal;
   font-display: swap;
 }
@@ -58,12 +58,12 @@
 }
 
 @font-face {
-  font-family: "AlbraBold";
-  src: url("AlbraBold.eot");
-  src: url("AlbraBold.eot?#iefix") format("embedded-opentype"),
-    url("AlbraBold.woff2") format("woff2"), url("AlbraBold.woff") format("woff"),
-    url("AlbraBold.ttf") format("truetype");
-  font-weight: bold;
+  font-family: "AlbraSemi";
+  src: url("AlbraSemi.eot");
+  src: url("AlbraSemi.eot?#iefix") format("embedded-opentype"),
+    url("AlbraSemi.woff2") format("woff2"), url("AlbraSemi.woff") format("woff"),
+    url("AlbraSemi.ttf") format("truetype");
+  font-weight: 600;
   font-style: normal;
   font-display: swap;
 }

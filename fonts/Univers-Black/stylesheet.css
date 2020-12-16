@@ -1,0 +1,11 @@
+@font-face {
+  font-family: "Univers-Black";
+  src: url("Univers-Black.eot");
+  src: url("Univers-Black.eot?#iefix") format("embedded-opentype"),
+    url("Univers-Black.woff2") format("woff2"),
+    url("Univers-Black.woff") format("woff"),
+    url("Univers-Black.ttf") format("truetype");
+  font-weight: 100;
+  font-style: italic;
+  font-display: swap;
+}
